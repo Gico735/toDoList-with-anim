@@ -1,0 +1,12 @@
+.listitem {
+  background-color: rgb(21, 154, 207);
+  border: 1px solid rgb(5, 63, 87);
+}
+
+.listitem__check {
+  cursor: pointer;
+}
+
+.listitem__remove {
+  cursor: pointer;
+}
