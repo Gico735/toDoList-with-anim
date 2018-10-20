@@ -6,7 +6,7 @@ class List extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      input: 'add',
+      input: '',
       tasks: [
         {
           id: 1,
@@ -39,8 +39,14 @@ class List extends React.Component {
 
   addTask = () => {
     const tasks = this.state.tasks
+    let newId = 0
+    tasks.map(el => {
+      if (el.id > newId) {
+        return newId = el.id
+      }
+    })
     const newTask = {
-      id: tasks.length + 1,
+      id: newId + 1,
       desc: this.state.input,
       done: false
     }
@@ -52,40 +58,40 @@ class List extends React.Component {
   }
 
   removeTask = (e) => {
-    const taskId = +e.target.dataset.task - 1
+    const taskId = +e.target.dataset.task
     const tasks = this.state.tasks
-    tasks.splice(taskId, 1)
+    tasks.map((el, i) => {
+      if (el.id === taskId) {
+        return tasks.splice(i, 1)
+      }
+    })
     this.sortTasks(tasks)
   }
 
   checkTask = (e) => {
     const taskId = +e.target.dataset.task
     const tasks = this.state.tasks
-    tasks.map((el, i) => {
+    tasks.map(el => {
       if (el.id === taskId) {
-        el.done = !el.done
+        return el.done = !el.done
       }
     })
-    console.log(tasks[taskId], taskId)
-    // this.setState({ tasks })
     this.sortTasks(tasks)
   }
 
-  sortTasks(tasks) {
-    tasks.map((el, i) => {
-      tasks.map((elem, j) => {
-        if (j === tasks.length - 1) return
-        if (elem.done < tasks[j + 1].done) {
+  sortTasks = (tasks) => {
+    tasks.map(() => {
+      tasks.map((elem, i) => {
+        if (i === tasks.length - 1) return
+        if (elem.done < tasks[i + 1].done) {
           const old = elem
-          tasks[j] = tasks[j + 1]
-          tasks[j + 1] = old
-          console.log(tasks)
-        } else if (elem.done === tasks[j + 1].done) {
-          if (elem.id < tasks[j + 1].id) {
+          tasks[i] = tasks[i + 1]
+          tasks[i + 1] = old
+        } else if (elem.done === tasks[i + 1].done) {
+          if (elem.id > tasks[i + 1].id) {
             const old = elem
-            tasks[j] = tasks[j + 1]
-            tasks[j + 1] = old
-            console.log(tasks)
+            tasks[i] = tasks[i + 1]
+            tasks[i + 1] = old
           }
         }
       })
@@ -101,12 +107,12 @@ class List extends React.Component {
           <input value={input} onChange={this.changeInput} type='text' className='add__input' />
           <button onClick={this.addTask} className='add__btn'>ADD</button>
         </div>
-
         <div className='list__wrap'>
           {
-            tasks.map((el, i) => {
+            tasks.map(el => {
+              console.log(el)
               return (
-                <ListItem key={i} task={el} checkTask={this.checkTask} removeTask={this.removeTask} />
+                <ListItem key={el.id} task={el} checkTask={this.checkTask} removeTask={this.removeTask} />
               )
             })
           }
