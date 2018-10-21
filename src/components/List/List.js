@@ -1,6 +1,7 @@
 import React from 'react';
 import './List.css'
 import ListItem from '../ListItem/ListItem'
+import FlipMove from 'react-flip-move';
 
 class List extends React.Component {
   constructor(props) {
@@ -108,14 +109,16 @@ class List extends React.Component {
           <button onClick={this.addTask} className='add__btn'>ADD</button>
         </div>
         <div className='list__wrap'>
-          {
-            tasks.map(el => {
-              console.log(el)
-              return (
-                <ListItem key={el.id} task={el} checkTask={this.checkTask} removeTask={this.removeTask} />
-              )
-            })
-          }
+          <FlipMove>
+            {
+              tasks.map(el => {
+                console.log(el)
+                return (
+                  <ListItem key={el.id} task={el} checkTask={this.checkTask} removeTask={this.removeTask} />
+                )
+              })
+            }
+          </FlipMove>
         </div>
       </div>
     )
