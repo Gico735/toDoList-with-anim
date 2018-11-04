@@ -117,15 +117,13 @@ class List extends React.Component {
   sortTasks = (tasks) => {
     tasks.forEach(el1 => {
       tasks.forEach(el2 => {
-        if (el1.id === el2.id || el1.id > el2.id) return
+        if (el1.id === el2.id) return
         if ((el1.done < el2.done) && (el1.posId < el2.posId)) {
           const old = el1.posId
           el1.posId = el2.posId
           el2.posId = old
+          this.sortTasks(tasks)
         } else if ((el1.done === el2.done)) {
-          if (el1.id === 3 || el1.id === 1) {
-            console.log(el1.id, el2.id)
-          }
           if ((el1.posId > el2.posId) && (el1.id < el2.id)) {
             const old = el1.posId
             el1.posId = el2.posId
@@ -149,7 +147,6 @@ class List extends React.Component {
           {/* <FlipMove> */}
           {
             tasks.map(el => {
-              console.log(el)
               return (
                 <ListItem key={el.id} task={el} checkTask={this.checkTask} removeTask={this.removeTask} />
               )
