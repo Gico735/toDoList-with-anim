@@ -1,6 +1,12 @@
 .listitem {
   background-color: rgb(21, 154, 207);
   border: 1px solid rgb(5, 63, 87);
+  transition: all .5s;
+  animation-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 200px;
 }
 
 .listitem__check {

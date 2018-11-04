@@ -1,0 +1,13 @@
+.list__wrap {
+  position: absolute;
+  left: 45%;
+  top: 10%;
+  width: 200px;
+  height: 70%;
+}
+
+.list__add {
+  position: absolute;
+  left: 45%;
+  top: 0;
+}
